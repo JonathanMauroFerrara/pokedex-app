@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import style from './style.module.css'
+import React, {FormEvent, useState} from 'react'
+
 
 type Pokemon = {
   name: string
@@ -10,20 +10,20 @@ type Pokemon = {
 }
 
 type SearchProp = {
-  searchPokemon: (pokemon: string, event: MouseEvent) => Promise <Array <Pokemon> >;
+  searchPokemon: (pokemon: string) => void;
 }
 
 function Searchbar({ searchPokemon }: SearchProp) {
     const [searchParameter, setSearchParameter] = useState("")
 
-    function handleSubmit(e: any){
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        searchPokemon(searchParameter.toLocaleLowerCase(), e);
+        searchPokemon(searchParameter.toLocaleLowerCase());
         setSearchParameter('')
     }
   return (
     <>
-    <h1>Cerca un pokemon</h1>
+    <h2>Cerca un pokemon</h2>
     <form onSubmit={(e) => handleSubmit(e)}>
         <input
             type="text"
@@ -31,9 +31,10 @@ function Searchbar({ searchPokemon }: SearchProp) {
             placeholder='es. Bulbasaur'
             value={searchParameter}
             onChange={(e) => setSearchParameter(e.target.value)}
+            required
         />
 
-        <button type="submit">CERCA</button>
+        <button className='button' type="submit">CERCA</button>
     </form>
     </>
   )
