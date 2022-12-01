@@ -3,12 +3,13 @@ import './App.css';
 import axios from 'axios'
 import Searchbar from './components/Searchbar';
 import PokemonLayout from './components/PokemonLayout';
+import { Pokemon } from './types'
 import "milligram";
 
 const API_URL = 'https://pokeapi.co/api/v2/pokemon/'
 
 function App() {
-  const [searchResult, setSearchResult] = useState();
+  const [searchResult, setSearchResult] = useState<Pokemon>();
   const [searchMessage, setSearchMessage] = useState ('')
 
   const searchPokemon = async (pokemon: string) => {
@@ -21,10 +22,14 @@ function App() {
     }
   }
 
+  const addToPokedex = (pokemonImg: string): void =>{
+    console.log("added");
+  }
+
   return (
     <section className='container'>
       <Searchbar searchPokemon={searchPokemon} />
-      {searchMessage !== '' && <PokemonLayout pokemonFound={searchResult} searchMessage={searchMessage}/>}
+      {searchMessage !== '' && <PokemonLayout pokemonFound={searchResult!} searchMessage={searchMessage} addToPokedex={addToPokedex}/>}
     </section>
   );
 }

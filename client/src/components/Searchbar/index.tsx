@@ -1,14 +1,6 @@
 import React, {FormEvent, useState} from 'react'
 
 
-type Pokemon = {
-  name: string
-  weigth: number
-  height: number
-  stats: {}
-  sprites: {}
-}
-
 type SearchProp = {
   searchPokemon: (pokemon: string) => void;
 }
